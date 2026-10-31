@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: vuon-sen-an-lanh-3d
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: NODE_ENV
+        value: production
+      - key: ALLOW_DEMO
+        value: 'false'
+      - key: BOT_TOKEN
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DB_PATH
+        value: /var/data/vuon_sen.sqlite
+    disk:
+      name: sen-data
+      mountPath: /var/data
+      sizeGB: 1

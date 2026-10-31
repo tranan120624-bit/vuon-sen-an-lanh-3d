@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#170f16" />
+  <meta name="description" content="Vườn Sen An Lành — khám phá ngôi chùa 3D, dâng hoa, thắp hương, cùng bạn bè và bảng xếp hạng trực tuyến trên Telegram." />
+  <title>Vườn Sen An Lành — Chùa 3D trực tuyến</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="ambient-orb orb-a" aria-hidden="true"></div>
+  <div class="ambient-orb orb-b" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="header">
+      <div class="brand-icon" aria-hidden="true">🪷</div>
+      <div class="brand-copy"><span class="eyebrow">TELEGRAM MINI APP</span><h1>Vườn Sen <span>An Lành</span></h1></div>
+      <button id="musicBtn" class="icon-btn" aria-label="Bật hoặc tắt âm thanh" title="Bật âm thanh">♫</button>
+    </header>
+
+    <section class="welcome panel">
+      <div><span class="welcome-label">CHÀO MỪNG ĐẾN CHÁNH ĐIỆN</span><strong id="greeting">Chào bạn, một ngày an yên nhé ✨</strong></div>
+      <div class="live-pill"><span class="live-dot"></span><b id="onlineCount">0</b> trực tuyến</div>
+    </section>
+
+    <section class="stats" aria-label="Tiến độ người chơi">
+      <div class="stat"><div class="stat-icon">🪷</div><div><strong id="points">0</strong><span>Điểm sen</span></div></div>
+      <div class="stat"><div class="stat-icon">✨</div><div><strong id="rank">—</strong><span>Xếp hạng</span></div></div>
+      <div class="stat"><div class="stat-icon">👥</div><div><strong id="totalPlayers">0</strong><span>Người tham gia</span></div></div>
+    </section>
+
+    <section class="scene-frame" aria-label="Chánh điện 3D và người chơi trực tuyến">
+      <div id="temple3d" class="scene"></div>
+      <div id="sceneFallback" class="scene-fallback" aria-hidden="true"><div class="fallback-sun">☀</div><div class="fallback-roof">❖</div><div class="fallback-buddha">☸</div><p>Đang mở cánh cửa chánh điện...</p></div>
+      <div class="scene-top"><span class="scene-label">✦ CHÁNH ĐIỆN 3D</span><span class="scene-people"><i></i> Người thật trực tuyến</span></div>
+      <div id="flyingFx" class="fx-layer" aria-hidden="true"></div>
+      <div class="scene-bottom"><div><strong id="sceneStatus">Ánh sáng bình an</strong><small>Chạm và kéo nhẹ để ngắm ngôi chùa</small></div><span class="swipe-hint">↔</span></div>
+      <div class="lotus-caption">“Gieo điều lành, nhận niềm vui”</div>
+    </section>
+
+    <section class="panel action-panel">
+      <div class="section-head"><div><span class="eyebrow">HOẠT ĐỘNG MỖI NGÀY</span><h2>Gửi một điều an lành</h2></div><span class="small-accent">3 lựa chọn</span></div>
+      <div class="actions">
+        <button class="action" data-action="lotus"><span class="action-icon">🪷</span><b>Dâng hoa sen</b><small>+1 điểm</small><span class="cooldown" data-cool="lotus"></span></button>
+        <button class="action" data-action="incense"><span class="action-icon">🕯️</span><b>Thắp hương</b><small>+3 điểm</small><span class="cooldown" data-cool="incense"></span></button>
+        <button class="action" data-action="breathe"><span class="action-icon">🧘</span><b>Thiền an nhiên</b><small>+5 điểm</small><span class="cooldown" data-cool="breathe"></span></button>
+      </div>
+      <div class="daily-row"><div><b>Thử thách hôm nay</b><span>Thực hiện 10 lượt dâng hoa sen</span></div><strong id="dailyLabel">0/10</strong></div>
+      <div class="progress"><div id="dailyProgress"></div></div>
+      <p class="hint">Điểm thưởng chỉ có giá trị trong trò chơi, không đổi thành tiền hay tài sản.</p>
+    </section>
+
+    <section class="columns">
+      <section class="panel ranking-panel">
+        <div class="section-head compact"><div><span class="eyebrow">BẢNG VINH DANH</span><h2>Người gieo điều lành</h2></div><span class="section-emoji">🏅</span></div>
+        <ol id="leaderboard" class="leaderboard"><li class="empty">Chưa có dữ liệu</li></ol>
+      </section>
+      <section class="panel activity-panel">
+        <div class="section-head compact"><div><span class="eyebrow">CẬP NHẬT TRỰC TIẾP</span><h2>Hoạt động vừa diễn ra</h2></div><span class="section-emoji">🔔</span></div>
+        <ul id="activity" class="activity-list"><li class="empty">Đang chờ những lời chúc đầu tiên…</li></ul>
+      </section>
+    </section>
+    <footer><span>🪷 Vườn Sen An Lành</span><span id="connection">Đang kết nối…</span><p>Trò chơi thư giãn mang tính biểu tượng văn hóa; không đại diện cho cơ sở tôn giáo nào.</p></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="loginOverlay" class="login-overlay" hidden>
+    <div class="login-card"><div class="large-lotus">🪷</div><h2 id="loginTitle">Chào mừng đến Vườn Sen</h2><p id="loginDescription">Đang kết nối với Telegram…</p>
+      <div id="demoForm" hidden><label for="demoName">Tên hiển thị khi thử trên máy tính</label><input id="demoName" maxlength="32" placeholder="Ví dụ: Sen Hồng" value="Khách an lành" /><button id="demoJoin" class="primary-btn">Vào chùa thử nghiệm</button></div>
+      <button id="loginRetry" class="ghost-btn" hidden>Thử đăng nhập lại</button><small>Mở từ bot Telegram để tham gia thật và lưu điểm cá nhân.</small></div>
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
